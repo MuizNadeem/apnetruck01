@@ -1,0 +1,30 @@
+{
+    "name": "apnetruck",
+    "version": "1.0.0",
+    "description": "Cargo Logistics",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app"
+    },
+    "dependencies": {
+        "express": "*",
+        "mongoose": "*",
+        "bcryptjs": "*",
+        "cors": "*",
+        "jsonwebtoken": "*",
+        "body-parser": "*",
+        "passport": "*",
+        "passport-jwt": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MuizNadeem/apnetruck01.git"
+    },
+    "author": "Muiz Nadeem",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MuizNadeem/apnetruck01/issues"
+    },
+    "homepage": "https://github.com/MuizNadeem/apnetruck01#readme"
+}
