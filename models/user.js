@@ -11,11 +11,29 @@ const UserSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            isAsync: true,
+            validator: function(v, cb) {
+                User.find({ email: v }, function(err, docs) {
+                    cb(docs.length == 0);
+                });
+            },
+            message: 'Email already used!'
+        }
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            isAsync: true,
+            validator: function(v, cb) {
+                User.find({ username: v }, function(err, docs) {
+                    cb(docs.length == 0);
+                });
+            },
+            message: 'Username already used!'
+        }
     },
     password: {
         type: String,
@@ -36,6 +54,7 @@ module.exports.getUserById = function(username, callback) {
 }
 
 module.exports.addUser = function(newUser, callback) {
+
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newUser.password, salt, function(err, hash) {
             newUser.password = hash;
