@@ -7,16 +7,12 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 //MongoDB
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database);
-//Good Connection
-mongoose.connection.on('connected', () => {
-    console.log('Connected to database ' + config.database)
-});
-//Connection error
-mongoose.connection.on('error', (err) => {
-    console.log('Database Error ' + err)
-});
+// Connect To Database
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, { useMongoClient: true, promiseLibrary: require('bluebird') })
+    .then(() => console.log(`Connected to database ${config.database}`))
+    .catch((err) => console.log(`Database error: ${err}`));
+
 
 
 const app = express();
@@ -37,6 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 //Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
 //Routes
 app.use('/users', users);
