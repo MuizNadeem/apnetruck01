@@ -54,7 +54,7 @@ router.post('/authenticate', (req, res, next) => {
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
-                const token = jwt.sign(user.toObject(), config.secret, {
+                const token = jwt.sign(user.toJSON(), config.secret, {
                     // changed argument list from user to { data: user } to resolve 
                     //Error: Expected "payload" to be a plain object. 
                     expiresIn: 604800 // 1 week
@@ -77,7 +77,7 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 //Profile
-router.get('/profile', passport.authenticate(jwt, { sesion: false }), (req, res, next) => {
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     res.send('PROFILE');
 });
 

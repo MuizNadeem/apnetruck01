@@ -9,7 +9,7 @@ const config = require('./config/database');
 //MongoDB
 // Connect To Database
 mongoose.Promise = require('bluebird');
-mongoose.connect(config.database, { useMongoClient: true, promiseLibrary: require('bluebird') })
+mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
     .then(() => console.log(`Connected to database ${config.database}`))
     .catch((err) => console.log(`Database error: ${err}`));
 
